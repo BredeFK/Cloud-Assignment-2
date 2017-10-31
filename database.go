@@ -12,6 +12,7 @@ func SetupDB() *MongoDB {
 		"mongodb://localhost",
 		"2imt2681",
 		"webhookCollection",
+		"currencyCollection",
 	}
 
 	session, err := mgo.Dial(db.DatabaseURL)
@@ -40,7 +41,7 @@ func (db * MongoDB) Init() {
 		Sparse: 	true,
 	}
 
-	err = session.DB(db.DatabaseName).C(db.CollectionName).EnsureIndex(index)
+	err = session.DB(db.DatabaseName).C(db.ColWebHook).EnsureIndex(index)
 	if err != nil {
 		panic(err)
 	}
@@ -54,7 +55,7 @@ func (db *MongoDB) Add(p Payload) error {
 
 	defer session.Close()
 
-	err = session.DB(db.DatabaseName).C(db.CollectionName).Insert(p)
+	err = session.DB(db.DatabaseName).C(db.ColWebHook).Insert(p)
 
 	if err != nil {
 		fmt.Printf("Could not add to db, error in Insert(): %v", err.Error())
@@ -72,17 +73,35 @@ func (db *MongoDB) Get(keyID string) (Payload, bool) {
 	defer session.Close()
 
 	payload := Payload{}
-	allWasGood := true
+	ok := true
 
-	err = session.DB(db.DatabaseName).C(db.CollectionName).Find(bson.M{"_id": bson.ObjectIdHex(keyID)}).One(&payload)
+	err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(bson.M{"_id": bson.ObjectIdHex(keyID)}).One(&payload)
 	if err != nil {
-		allWasGood = false
+		ok = false
 	}
 
-	return payload, allWasGood
+	return payload, ok
 }
 
-func (db *MongoDB) Delete(keyID string) (bool) {
+func (db *MongoDB) GetLatest(date string) (Currency, bool) {
+	session, err := mgo.Dial(db.DatabaseURL)
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	currency := Currency{}
+	notToday := true
+
+	err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(bson.M{"date": date}).One(&currency)
+	if err != nil {
+		notToday = false
+	}
+
+	return currency, notToday
+}
+
+func (db *MongoDB) Delete(keyID string) bool {
 
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
@@ -90,13 +109,43 @@ func (db *MongoDB) Delete(keyID string) (bool) {
 	}
 	defer session.Close()
 
-	allWasGood := true
+	ok := true
 
-	err = session.DB(db.DatabaseName).C(db.CollectionName).Remove(bson.M{"_id": bson.ObjectIdHex(keyID)})
+	err = session.DB(db.DatabaseName).C(db.ColWebHook).Remove(bson.M{"_id": bson.ObjectIdHex(keyID)})
 	if err != nil {
-		allWasGood = false
+		ok = false
 	}
 
-	return allWasGood
+	return ok
+}
+
+func (db *MongoDB) AddCurrency(c Currency) error {
+
+	session, err := mgo.Dial(db.DatabaseURL)
+	if err != nil {
+		panic(err)
+	}
+
+	defer session.Close()
+
+	err = session.DB(db.DatabaseName).C(db.ColCurrency).Insert(c)
+
+	if err != nil {
+		fmt.Printf("Could not add currency to db, error in Insert(): %v", err.Error())
+		return err
+	}
+
+	return nil
+}
+
+func DailyCurrencyAdder(){	// TODO : Add a timer to make this automatic daily
+
+
+	currency := GetCurrency()
+
+	db := SetupDB()
+	db.Init()
+	db.AddCurrency(currency)
+
 }
 

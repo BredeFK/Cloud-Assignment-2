@@ -18,12 +18,11 @@ import (
 func main() {
 	http.HandleFunc("/", HandleWebhook)
 	http.HandleFunc("/latest", HandleLatest)
+	http.HandleFunc("/add", HandleAdd)		// TODO : Remove this to automatic
 	http.HandleFunc("/average", HandleAverage)
 //	http.ListenAndServe("localhost:8080", nil)
 
 	port := os.Getenv("PORT")
 	http.ListenAndServe(":" + port, nil)
 
-//	text := "Sup mah dudes!"
-//	DiscordOperator(text, DiscordURL_notAbot)
 }
