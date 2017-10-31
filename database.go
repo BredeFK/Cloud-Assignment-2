@@ -3,13 +3,14 @@ package main
 import (
 	"gopkg.in/mgo.v2"
 	"fmt"
+	"gopkg.in/mgo.v2/bson"
 )
 
 
 func SetupDB() *MongoDB {
 	db := MongoDB{
 		"mongodb://localhost",
-		"currencyDB",
+		"2imt2681",
 		"webhookCollection",
 	}
 
@@ -34,7 +35,7 @@ func (db * MongoDB) Init() {
 	index := mgo.Index{
 		Key:		[]string{"currencyid"},
 		Unique: 	true,
-		DropDups:	true,
+		DropDups:	false,
 		Background: true,
 		Sparse: 	true,
 	}
@@ -62,3 +63,40 @@ func (db *MongoDB) Add(p Payload) error {
 
 	return nil
 }
+
+func (db *MongoDB) Get(keyID string) (Payload, bool) {
+	session, err := mgo.Dial(db.DatabaseURL)
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	payload := Payload{}
+	allWasGood := true
+
+	err = session.DB(db.DatabaseName).C(db.CollectionName).Find(bson.M{"_id": bson.ObjectIdHex(keyID)}).One(&payload)
+	if err != nil {
+		allWasGood = false
+	}
+
+	return payload, allWasGood
+}
+
+func (db *MongoDB) Delete(keyID string) (bool) {
+
+	session, err := mgo.Dial(db.DatabaseURL)
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	allWasGood := true
+
+	err = session.DB(db.DatabaseName).C(db.CollectionName).Remove(bson.M{"_id": bson.ObjectIdHex(keyID)})
+	if err != nil {
+		allWasGood = false
+	}
+
+	return allWasGood
+}
+

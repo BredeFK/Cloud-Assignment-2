@@ -1,3 +1,5 @@
+sudo service mongod start/stop
+
 > show dbs
 
 > use <db>

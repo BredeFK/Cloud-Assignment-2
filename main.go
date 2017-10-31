@@ -20,6 +20,8 @@ func main() {
 // 	http.ListenAndServe(":" + port, nil)
 
 	http.HandleFunc("/", HandleWebhook)
+	http.HandleFunc("/latest", HandleLatest)
+	http.HandleFunc("/average", HandleAverage)
 	http.ListenAndServe("localhost:8080", nil)
 
 //	text := "Sup mah dudes!"
