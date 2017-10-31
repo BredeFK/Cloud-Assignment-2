@@ -9,7 +9,7 @@ import (
 
 func SetupDB() *MongoDB {
 	db := MongoDB{
-		"mongodb://localhost",
+		"mongodb://localhost",		// TODO : deploy mongodb
 		"2imt2681",
 		"webhookCollection",
 		"currencyCollection",
