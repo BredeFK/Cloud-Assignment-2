@@ -11,18 +11,18 @@ package main
 
 import (
 	"net/http"
+	"os"
 )
 
 
 func main() {
-
-//	port := os.Getenv("PORT")
-// 	http.ListenAndServe(":" + port, nil)
-
 	http.HandleFunc("/", HandleWebhook)
 	http.HandleFunc("/latest", HandleLatest)
 	http.HandleFunc("/average", HandleAverage)
-	http.ListenAndServe("localhost:8080", nil)
+//	http.ListenAndServe("localhost:8080", nil)
+
+	port := os.Getenv("PORT")
+	http.ListenAndServe(":" + port, nil)
 
 //	text := "Sup mah dudes!"
 //	DiscordOperator(text, DiscordURL_notAbot)
