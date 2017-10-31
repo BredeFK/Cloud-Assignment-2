@@ -5,11 +5,6 @@ import (
 	"fmt"
 )
 
-type MongoDB struct {
-	DatabaseURL    string
-	DatabaseName   string
-	CollectionName string
-}
 
 func SetupDB() *MongoDB {
 	db := MongoDB{
