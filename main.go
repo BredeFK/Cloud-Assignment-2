@@ -15,13 +15,13 @@ import (
 
 
 func main() {
-
-//	port := os.Getenv("PORT")
-// 	http.ListenAndServe(":" + port, nil)
-
 	http.HandleFunc("/", HandleWebhook)
+	http.HandleFunc("/latest", HandleLatest)
+	http.HandleFunc("/add", HandleAdd)		// TODO : Remove this to automatic
+	http.HandleFunc("/average", HandleAverage)
 	http.ListenAndServe("localhost:8080", nil)
 
-//	text := "Sup mah dudes!"
-//	DiscordOperator(text, DiscordURL_notAbot)
+//	port := os.Getenv("PORT")
+//	http.ListenAndServe(":" + port, nil)
+
 }

@@ -13,7 +13,7 @@ type Payload struct {
 	WebhookURL  	string 		  `json:"webhookURL"`
 	BaseCurrency 	string		  `json:"baseCurrency"`
 	TargetCurrency	string		  `json:"targetCurrency"`
-//	CurrentRate		float64		  `json:"currentRate"`
+//	CurrentRate		float64		  `json:"currentRate"`	// TODO : Maybe remove
 	MinTriggerValue float64		  `json:"minTriggerValue"`
 	MaxTriggerValue float64		  `json:"maxTriggerValue"`
 }
@@ -27,5 +27,6 @@ type Currency struct {
 type MongoDB struct {
 	DatabaseURL    string
 	DatabaseName   string
-	CollectionName string
+	ColWebHook 	   string
+	ColCurrency	   string
 }
