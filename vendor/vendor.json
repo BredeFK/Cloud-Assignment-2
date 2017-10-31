@@ -2,9 +2,5 @@
 	"comment": "",
 	"ignore": "test",
 	"package": [],
-	"rootPath": "Oblig2_Heroku",
-	"heroku":{
-		"install":["./..."],
-		"goVersion":"go1.8"
-	}
+	"rootPath": "Oblig2_Heroku"
 }
