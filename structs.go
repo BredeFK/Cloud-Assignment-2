@@ -1,6 +1,8 @@
 package main
 
-import "gopkg.in/mgo.v2/bson"
+import(
+	"gopkg.in/mgo.v2/bson"
+)
 
 type WebhookInfo struct {
 	Content string `json:"content"`
