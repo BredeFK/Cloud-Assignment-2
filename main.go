@@ -11,17 +11,17 @@ package main
 
 import (
 	"net/http"
+	"os"
 )
 
 
 func main() {
+	port := os.Getenv("PORT")
 	http.HandleFunc("/", HandleWebhook)
 	http.HandleFunc("/latest", HandleLatest)
 	http.HandleFunc("/add", HandleAdd)		// TODO : Remove this to automatic
 	http.HandleFunc("/average", HandleAverage)
-	http.ListenAndServe("localhost:8080", nil)
-
-//	port := os.Getenv("PORT")
-//	http.ListenAndServe(":" + port, nil)
+	http.ListenAndServe(":" + port, nil)
+//	http.ListenAndServe("localhost:8080", nil)
 
 }

@@ -112,14 +112,12 @@ func HandleLatest (w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	rate := currency.Rates[payload.TargetCurrency]
+	/*
 	rateString := fmt.Sprint(rate)
-
-
-
 	text := "The rate between " + payload.BaseCurrency + " and " + payload.TargetCurrency + " is: " + rateString
-
 	DiscordOperator( text , DiscordURL_notAbot)
-	fmt.Fprint(w, currency.Rates[payload.TargetCurrency])
+	*/
+	fmt.Fprint(w, rate)
 }
 
 func HandleAverage (w http.ResponseWriter, r *http.Request) {
