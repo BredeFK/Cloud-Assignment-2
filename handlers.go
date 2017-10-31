@@ -22,14 +22,6 @@ func HandlePOST(w http.ResponseWriter, r *http.Request){
 
 	defer r.Body.Close()
 
-
-
-
-
-	/* TESTING
-	json.Marshal(&payload)
-	json.NewEncoder(w).Encode
-	*/
 }
 
 func HandleGET(w http.ResponseWriter, r *http.Request) {

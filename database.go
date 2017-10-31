@@ -3,13 +3,14 @@ package main
 import (
 	"gopkg.in/mgo.v2"
 	"fmt"
+	"gopkg.in/mgo.v2/bson"
 )
 
 
 func SetupDB() *MongoDB {
 	db := MongoDB{
 		"mongodb://localhost",
-		"currencyDB",
+		"2imt2681",
 		"webhookCollection",
 	}
 
@@ -61,4 +62,22 @@ func (db *MongoDB) Add(p Payload) error {
 	}
 
 	return nil
+}
+
+func (db *MongoDB) Get(keyID string) (Payload, bool) {
+	session, err := mgo.Dial(db.DatabaseURL)
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	payload := Payload{}
+	allWasGood := true
+
+	err = session.DB(db.DatabaseName).C(db.CollectionName).Find(bson.M{"ID": keyID}).One(&payload)
+	if err != nil {
+		allWasGood = false
+	}
+
+	return payload, allWasGood
 }
