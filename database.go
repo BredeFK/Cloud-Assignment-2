@@ -21,7 +21,7 @@ func SetupDB() *MongoDB {
 	defer session.Close()
 
 	if err != nil{
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return &db
@@ -31,7 +31,7 @@ func (db * MongoDB) Init() {
 
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil  {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer session.Close()
 
@@ -45,14 +45,14 @@ func (db * MongoDB) Init() {
 
 	err = session.DB(db.DatabaseName).C(db.ColWebHook).EnsureIndex(index)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 
 func (db *MongoDB) Add(p Payload) error {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	defer session.Close()
@@ -60,7 +60,7 @@ func (db *MongoDB) Add(p Payload) error {
 	err = session.DB(db.DatabaseName).C(db.ColWebHook).Insert(p)
 
 	if err != nil {
-		fmt.Printf("Could not add to db, error in Insert(): %v", err.Error())
+		log.Printf("Could not add to db, error in Insert(): %v", err.Error())
 		return err
 	}
 
@@ -70,7 +70,7 @@ func (db *MongoDB) Add(p Payload) error {
 func (db *MongoDB) Get(keyID string) (Payload, bool) {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer session.Close()
 
@@ -88,7 +88,7 @@ func (db *MongoDB) Get(keyID string) (Payload, bool) {
 func (db *MongoDB) GetLatest(date string) (Currency, bool) {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer session.Close()
 
@@ -107,7 +107,7 @@ func (db *MongoDB) Delete(keyID string) bool {
 
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer session.Close()
 
@@ -125,7 +125,7 @@ func (db *MongoDB) AddCurrency(c Currency) error {
 
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	defer session.Close()
@@ -133,7 +133,7 @@ func (db *MongoDB) AddCurrency(c Currency) error {
 	err = session.DB(db.DatabaseName).C(db.ColCurrency).Insert(c)
 
 	if err != nil {
-		fmt.Printf("Could not add currency to db, error in Insert(): %v", err.Error())
+		log.Printf("Could not add currency to db, error in Insert(): %v", err.Error())
 		return err
 	}
 
@@ -143,13 +143,13 @@ func (db *MongoDB) AddCurrency(c Currency) error {
 func (db *MongoDB) Count() int {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer session.Close()
 
 	count, err := session.DB(db.DatabaseName).C(db.ColWebHook).Count()
 	if err != nil{
-		fmt.Printf("Error in Count(): %v", err.Error())
+		log.Printf("Error in Count(): %v", err.Error())
 		return -1
 	}
 
@@ -172,7 +172,7 @@ func CheckTrigger() {
 		webHook := Payload{}
 		session, err := mgo.Dial(db.DatabaseURL)
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 		defer session.Close()
 
@@ -186,11 +186,9 @@ func CheckTrigger() {
 		}
 
 		for i := 1; i <= count; i++ {
-
-
 			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count-i).One(&webHook)
 			if err != nil{
-				log.Printf("Error in CheckTrigger() | Can not get one or more webhooks", err)
+				log.Printf("Error in CheckTrigger() | Can not get one or more webhooks", err.Error())
 				return
 			}
 
@@ -199,15 +197,12 @@ func CheckTrigger() {
 			min := fmt.Sprint(webHook.MinTriggerValue)
 			max := fmt.Sprint(webHook.MaxTriggerValue)
 
-
 			if rate > webHook.MaxTriggerValue || rate < webHook.MinTriggerValue{
 				text := "baseCurrency: " + webHook.BaseCurrency + "\ntargetCurrency: " + webHook.TargetCurrency + "\ncurrent: " + rateString + "\nminTriggerValue: " + min + "\nmaxTriggerValue: " + max
 				DiscordOperator(text, webHook.WebhookURL)
 			}
-
 		}
 	}else{
-		fmt.Printf("Error in CheckTrigger() | There is no recorded data in the webhook collection")
+		log.Printf("Error in CheckTrigger() | There is no recorded data in the webhook collection")
 	}
-
 }

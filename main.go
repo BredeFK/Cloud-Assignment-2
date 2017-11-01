@@ -25,9 +25,9 @@ func main() {
 
 	cycle := 0
 	for {
-		delay := time.Minute * 35
+		delay := time.Minute * 5
 		time.Sleep(delay)
-		cycle += 35
+		cycle += 5
 
 		if cycle == 35{
 			cycle = 0
