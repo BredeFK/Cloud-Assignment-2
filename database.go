@@ -4,6 +4,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"fmt"
 	"gopkg.in/mgo.v2/bson"
+	"time"
+	"log"
 )
 
 
@@ -138,14 +140,74 @@ func (db *MongoDB) AddCurrency(c Currency) error {
 	return nil
 }
 
-func DailyCurrencyAdder(){	// TODO : Add a timer to make this automatic daily
+func (db *MongoDB) Count() int {
+	session, err := mgo.Dial(db.DatabaseURL)
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
 
+	count, err := session.DB(db.DatabaseName).C(db.ColWebHook).Count()
+	if err != nil{
+		fmt.Printf("Error in Count(): %v", err.Error())
+		return -1
+	}
 
+	return count
+}
+
+func DailyCurrencyAdder(){
 	currency := GetCurrency()
-
 	db := SetupDB()
 	db.Init()
 	db.AddCurrency(currency)
-
 }
 
+func CheckTrigger() {
+
+	db := SetupDB()
+	count := db.Count()
+
+	if count > 0{
+		webHook := Payload{}
+		session, err := mgo.Dial(db.DatabaseURL)
+		if err != nil {
+			panic(err)
+		}
+		defer session.Close()
+
+		tempToday := time.Now().Local()
+		today := tempToday.Format("2006-01-02")
+
+		currency, ok := db.GetLatest(today)
+		if ok == false{
+			log.Printf("Error in CheckTrigger() | There isn't any data for today yet")
+			return
+		}
+
+		for i := 1; i <= count; i++ {
+
+
+			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count-i).One(&webHook)
+			if err != nil{
+				log.Printf("Error in CheckTrigger() | Can not get one or more webhooks", err)
+				return
+			}
+
+			rate := currency.Rates[webHook.TargetCurrency]
+			rateString := fmt.Sprint(rate)
+			min := fmt.Sprint(webHook.MinTriggerValue)
+			max := fmt.Sprint(webHook.MaxTriggerValue)
+
+
+			if rate > webHook.MaxTriggerValue || rate < webHook.MinTriggerValue{
+				text := "baseCurrency: " + webHook.BaseCurrency + "\ntargetCurrency: " + webHook.TargetCurrency + "\ncurrent: " + rateString + "\nminTriggerValue: " + min + "\nmaxTriggerValue: " + max
+				DiscordOperator(text, webHook.WebhookURL)
+			}
+
+		}
+	}else{
+		fmt.Printf("Error in CheckTrigger() | There is no recorded data in the webhook collection")
+	}
+
+}
