@@ -11,7 +11,7 @@ import (
 
 func SetupDB() *MongoDB {
 	db := MongoDB{
-		"mongodb://localhost",		// TODO : deploy mongodb
+		"mongodb://fritjof:mlab123@ds241395.mlab.com:41395/2imt2681",		// TODO : deploy mongodb
 		"2imt2681",
 		"webhookCollection",
 		"currencyCollection",
