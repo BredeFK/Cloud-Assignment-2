@@ -25,11 +25,11 @@ func main() {
 
 	cycle := 0
 	for {
-		delay := time.Minute * 10
+		delay := time.Minute * 35
 		time.Sleep(delay)
-		cycle += 10
+		cycle += 35
 
-		if cycle == 1440{
+		if cycle == 35{
 			cycle = 0
 			DailyCurrencyAdder()
 			CheckTrigger()
