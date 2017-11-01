@@ -109,11 +109,6 @@ func HandleLatest (w http.ResponseWriter, r *http.Request) {
 	}
 	rate := currency.Rates[payload.TargetCurrency]
 	fmt.Fprint(w, rate)
-	/*
-	rateString := fmt.Sprint(rate)
-	text := "The rate between " + payload.BaseCurrency + " and " + payload.TargetCurrency + " is: " + rateString
-	DiscordOperator( text , DiscordURL_notAbot)
-	*/
 }
 
 func HandleAverage (w http.ResponseWriter, r *http.Request) {
@@ -165,13 +160,6 @@ func HandleAverage (w http.ResponseWriter, r *http.Request) {
 	}
 	average := sum / tdFloat
 	fmt.Fprint(w, average)
-
-	/*
-	days := strconv.Itoa(totalDays)
-	averageString := fmt.Sprint(average)
-	text := "The average rate over the " + days + " days between " + payload.BaseCurrency + " and " + payload.TargetCurrency + " is: " + averageString
-	DiscordOperator( text , DiscordURL_notAbot)
-	*/
 }
 
 func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
@@ -209,17 +197,9 @@ func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
 			text := "baseCurrency: " + webhook.BaseCurrency + "\ntargetCurrency: " + webhook.TargetCurrency + "\ncurrent: " + rateString + "\nminTriggerValue: " + min + "\nmaxTriggerValue: " + max
 
 			DiscordOperator(text, webhook.WebhookURL)
-
-
 		}
-
-
 	}else{
 		http.Error(w, "There isn't any data yet", 404)
 		return
 	}
-}
-
-func HandleAdd (w http.ResponseWriter, r *http.Request) {	// TODO : make automatic
-	DailyCurrencyAdder()
 }

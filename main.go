@@ -18,18 +18,21 @@ func main() {
 	port := os.Getenv("PORT")
 	http.HandleFunc("/", HandleWebhook)
 	http.HandleFunc("/latest", HandleLatest)
-	http.HandleFunc("/add", HandleAdd)						// TODO : Remove this to automatic
 	http.HandleFunc("/average", HandleAverage)
 	http.HandleFunc("/evaluationtrigger", HandleTestTrigger)
 	go http.ListenAndServe(":" + port, nil)
 //	go http.ListenAndServe("localhost:8080", nil)
 
+	cycle := 0
 	for {
-		DailyCurrencyAdder()
-		CheckTrigger()
-
-		delay := time.Hour * 24
+		delay := time.Minute * 10
 		time.Sleep(delay)
-	}
+		cycle += 10
 
+		if cycle == 1440{
+			cycle = 0
+			DailyCurrencyAdder()
+			CheckTrigger()
+		}
+	}
 }
