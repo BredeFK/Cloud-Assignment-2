@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 	"fmt"
+	"gopkg.in/mgo.v2"
+	"log"
 )
 
 func HandlePOST(w http.ResponseWriter, r *http.Request){
@@ -17,12 +19,7 @@ func HandlePOST(w http.ResponseWriter, r *http.Request){
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
 	defer r.Body.Close()
-
-	// Remove before turning in
-	json.Marshal(&payload)
-	json.NewEncoder(w).Encode(payload)
 
 	db := SetupDB()
 	db.Init()
@@ -38,7 +35,6 @@ func HandleGET(w http.ResponseWriter, r *http.Request, getID string) {
 		http.Error(w, "ObjectID not found", http.StatusBadRequest)
 		return
 	}
-
 
 	json.Marshal(&payload)
 	json.NewEncoder(w).Encode(payload)
@@ -122,10 +118,9 @@ func HandleLatest (w http.ResponseWriter, r *http.Request) {
 
 func HandleAverage (w http.ResponseWriter, r *http.Request) {
 
-	totalDays := 3
+	const totalDays = 3
 	tdFloat := float64(totalDays)
 	payload := Payload{}
-	var day [365]float64
 
 	switch r.Method {
 	case "POST":
@@ -157,30 +152,72 @@ func HandleAverage (w http.ResponseWriter, r *http.Request) {
 	sum := 0.0000
 
 	for i := 0; i < totalDays; i++{
+		tempToday = time.Now().Local().AddDate(0,0,-i)
+		today = tempToday.Format("2006-01-02")
 
 		currency, ok := db.GetLatest(today)
-
 		if ok == false{
 			http.Error(w, "There isn't any data for all the days yet", 404)
 			return
 		}
 
-		day[i] = currency.Rates[payload.TargetCurrency]
-
-		tempToday.AddDate(0,0,-1)
-		today = tempToday.Format("2006-01-02")
-
-		sum += day[i]
+		sum += currency.Rates[payload.TargetCurrency]
 	}
-
 	average := sum / tdFloat
 	fmt.Fprint(w, average)
+
 	/*
 	days := strconv.Itoa(totalDays)
 	averageString := fmt.Sprint(average)
 	text := "The average rate over the " + days + " days between " + payload.BaseCurrency + " and " + payload.TargetCurrency + " is: " + averageString
 	DiscordOperator( text , DiscordURL_notAbot)
 	*/
+}
+
+func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
+	db := SetupDB()
+	count := db.Count()
+
+	if count > 0{
+		webhook := Payload{}
+		session, err := mgo.Dial(db.DatabaseURL)
+		if err != nil{
+			panic(err)
+		}
+		defer session.Close()
+
+		tempToday := time.Now().Local()
+		today := tempToday.Format("2006-01-02")
+
+		currency, ok := db.GetLatest(today)
+		if ok == false{
+			http.Error(w, "There isn't any currency data from today", 404)
+			return
+		}
+
+		for i := 1; i<= count; i++{
+			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count-i).One(&webhook)
+			if err != nil{
+				log.Printf("Error in HandleTestTrigger() | Can not get one or more webhook data", err)
+				return
+			}
+
+			rate := currency.Rates[webhook.TargetCurrency]
+			rateString := fmt.Sprint(rate)
+			min := fmt.Sprint(webhook.MinTriggerValue)
+			max := fmt.Sprint(webhook.MaxTriggerValue)
+			text := "baseCurrency: " + webhook.BaseCurrency + "\ntargetCurrency: " + webhook.TargetCurrency + "\ncurrent: " + rateString + "\nminTriggerValue: " + min + "\nmaxTriggerValue: " + max
+
+			DiscordOperator(text, webhook.WebhookURL)
+
+
+		}
+
+
+	}else{
+		http.Error(w, "There isn't any data yet", 404)
+		return
+	}
 }
 
 func HandleAdd (w http.ResponseWriter, r *http.Request) {	// TODO : make automatic
