@@ -1,21 +1,21 @@
-package main
+package gofiles
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
-	"log"
-	"io/ioutil"
-	"encoding/json"
 )
 
-func GetCurrency(URL string) Currency{
+func GetCurrency(URL string) Currency {
 
 	client := http.Client{
 		Timeout: time.Second * 2,
 	}
 
 	req, err := http.NewRequest(http.MethodGet, URL, nil)
-	if err != nil{
+	if err != nil {
 		log.Fatal(err)
 	}
 
@@ -27,7 +27,7 @@ func GetCurrency(URL string) Currency{
 	}
 
 	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil{
+	if readErr != nil {
 		log.Fatal(readErr)
 	}
 

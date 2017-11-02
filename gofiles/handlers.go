@@ -1,16 +1,16 @@
-package main
+package gofiles
 
 import (
-	"net/http"
 	"encoding/json"
-	"strings"
-	"time"
 	"fmt"
 	"gopkg.in/mgo.v2"
 	"log"
+	"net/http"
+	"strings"
+	"time"
 )
 
-func HandlePOST(w http.ResponseWriter, r *http.Request){
+func HandlePOST(w http.ResponseWriter, r *http.Request) {
 
 	payload := Payload{}
 
@@ -31,7 +31,7 @@ func HandleGET(w http.ResponseWriter, r *http.Request, getID string) {
 
 	db := SetupDB()
 	payload, ok := db.Get(getID)
-	if ok == false{
+	if ok == false {
 		http.Error(w, "ObjectID not found", http.StatusBadRequest)
 		return
 	}
@@ -40,11 +40,11 @@ func HandleGET(w http.ResponseWriter, r *http.Request, getID string) {
 	json.NewEncoder(w).Encode(payload)
 }
 
-func HandleDELETE( w http.ResponseWriter, r *http.Request, getID string) {
+func HandleDELETE(w http.ResponseWriter, r *http.Request, getID string) {
 
 	db := SetupDB()
 	ok := db.Delete(getID)
-	if ok == false{
+	if ok == false {
 		http.Error(w, "ObjectID not found", http.StatusBadRequest)
 		return
 	}
@@ -52,7 +52,7 @@ func HandleDELETE( w http.ResponseWriter, r *http.Request, getID string) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func HandleWebhook (w http.ResponseWriter, r *http.Request) {
+func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	URL := strings.Split(r.URL.Path, "/")
 	objectID := URL[1]
@@ -70,7 +70,7 @@ func HandleWebhook (w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func HandleLatest (w http.ResponseWriter, r *http.Request) {
+func HandleLatest(w http.ResponseWriter, r *http.Request) {
 
 	payload := Payload{}
 
@@ -103,11 +103,11 @@ func HandleLatest (w http.ResponseWriter, r *http.Request) {
 	db := SetupDB()
 	currency, ok := db.GetLatest(today)
 
-	if ok == false{
-		tempToday = time.Now().Local().AddDate(0,0,-1)
+	if ok == false {
+		tempToday = time.Now().Local().AddDate(0, 0, -1)
 		yesterday := tempToday.Format("2006-01-02")
 		currency, ok = db.GetLatest(yesterday)
-		if ok == false{
+		if ok == false {
 			http.Error(w, "Could not get any data from today or yesterday :/", 404)
 		}
 	}
@@ -116,7 +116,7 @@ func HandleLatest (w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, rate)
 }
 
-func HandleAverage (w http.ResponseWriter, r *http.Request) {
+func HandleAverage(w http.ResponseWriter, r *http.Request) {
 
 	const totalDays = 3
 	tdFloat := float64(totalDays)
@@ -151,12 +151,12 @@ func HandleAverage (w http.ResponseWriter, r *http.Request) {
 	db := SetupDB()
 	sum := 0.0000
 
-	for i := 0; i < totalDays; i++{
-		tempToday = time.Now().Local().AddDate(0,0,-i)
+	for i := 0; i < totalDays; i++ {
+		tempToday = time.Now().Local().AddDate(0, 0, -i)
 		today = tempToday.Format("2006-01-02")
 
 		currency, ok := db.GetLatest(today)
-		if ok == false{
+		if ok == false {
 			http.Error(w, "There isn't any data for all the days yet", 404)
 			return
 		}
@@ -167,14 +167,14 @@ func HandleAverage (w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, average)
 }
 
-func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
+func HandleTestTrigger(w http.ResponseWriter, r *http.Request) {
 	db := SetupDB()
 	count := db.Count()
 
-	if count > 0{
+	if count > 0 {
 		webhook := Payload{}
 		session, err := mgo.Dial(db.DatabaseURL)
-		if err != nil{
+		if err != nil {
 			panic(err)
 		}
 		defer session.Close()
@@ -183,14 +183,14 @@ func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
 		today := tempToday.Format("2006-01-02")
 
 		currency, ok := db.GetLatest(today)
-		if ok == false{
+		if ok == false {
 			http.Error(w, "There isn't any currency data from today", 404)
 			return
 		}
 
-		for i := 1; i<= count; i++{
-			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count-i).One(&webhook)
-			if err != nil{
+		for i := 1; i <= count; i++ {
+			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count - i).One(&webhook)
+			if err != nil {
 				log.Printf("Error in HandleTestTrigger() | Can not get one or more webhook data", err.Error())
 				return
 			}
@@ -203,13 +203,13 @@ func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
 
 			DiscordOperator(text, webhook.WebhookURL)
 		}
-	}else{
+	} else {
 		http.Error(w, "There isn't any data yet", 404)
 		return
 	}
 }
 
-func HandleAdd(w http.ResponseWriter, r *http.Request){
+func HandleAdd(w http.ResponseWriter, r *http.Request) {
 	DailyCurrencyAdder()
 	CheckTrigger()
 }
