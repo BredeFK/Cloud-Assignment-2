@@ -2,6 +2,10 @@
 	"ImportPath": "Oblig2_Heroku",
 	"GoVersion": "go1.8",
 	"GodepVersion": "v79",
+	"Packages": [
+		"./cmd/assignment2",
+		"./cmd/webhook"
+	],
 	"Deps": [
 		{
 			"ImportPath": "gopkg.in/mgo.v2",

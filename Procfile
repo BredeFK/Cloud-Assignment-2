@@ -1,1 +1,2 @@
-web: Oblig2_Heroku
+web: assignment2
+one-off: webhook

@@ -1,6 +1,6 @@
 package main
 
-import(
+import (
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -9,23 +9,23 @@ type WebhookInfo struct {
 }
 
 type Payload struct {
-	ID 				bson.ObjectId `bson:"_id,omitempty"`
-	WebhookURL  	string 		  `json:"webhookURL"`
-	BaseCurrency 	string		  `json:"baseCurrency"`
-	TargetCurrency	string		  `json:"targetCurrency"`
-	MinTriggerValue float64		  `json:"minTriggerValue"`
-	MaxTriggerValue float64		  `json:"maxTriggerValue"`
+	ID              bson.ObjectId `bson:"_id,omitempty"`
+	WebhookURL      string        `json:"webhookURL"`
+	BaseCurrency    string        `json:"baseCurrency"`
+	TargetCurrency  string        `json:"targetCurrency"`
+	MinTriggerValue float64       `json:"minTriggerValue"`
+	MaxTriggerValue float64       `json:"maxTriggerValue"`
 }
 
 type Currency struct {
-	Base 	string				`json:"base"`
-	Date 	string 				`json:"date"`
-	Rates	map[string]float64	`json:"rates"`
+	Base  string             `json:"base"`
+	Date  string             `json:"date"`
+	Rates map[string]float64 `json:"rates"`
 }
 
 type MongoDB struct {
-	DatabaseURL    string
-	DatabaseName   string
-	ColWebHook 	   string
-	ColCurrency	   string
+	DatabaseURL  string
+	DatabaseName string
+	ColWebHook   string
+	ColCurrency  string
 }

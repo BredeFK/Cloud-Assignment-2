@@ -1,14 +1,14 @@
 package main
 
 import (
-	"encoding/json"
-	"net/http"
 	"bytes"
+	"encoding/json"
 	"io/ioutil"
 	"log"
+	"net/http"
 )
 
-func DiscordOperator (someText string, discordURL string) {
+func DiscordOperator(someText string, discordURL string) {
 	info := WebhookInfo{}
 	info.Content = someText + "\n"
 	raw, _ := json.Marshal(info)

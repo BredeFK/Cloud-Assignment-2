@@ -1,19 +1,18 @@
 package main
 
 import (
-	"gopkg.in/mgo.v2"
 	"fmt"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"time"
 	"log"
+	"time"
 )
 
 const URL = "http://api.fixer.io/latest?base=EUR"
 
-
 func SetupDB() *MongoDB {
 	db := MongoDB{
-		"mongodb://fritjof:mlab123@ds241395.mlab.com:41395/2imt2681",		// TODO : deploy mongodb
+		"mongodb://fritjof:mlab123@ds241395.mlab.com:41395/2imt2681",
 		"2imt2681",
 		"webhookCollection",
 		"currencyCollection",
@@ -22,27 +21,27 @@ func SetupDB() *MongoDB {
 	session, err := mgo.Dial(db.DatabaseURL)
 	defer session.Close()
 
-	if err != nil{
+	if err != nil {
 		log.Fatal(err)
 	}
 
 	return &db
 }
 
-func (db * MongoDB) Init() {
+func (db *MongoDB) Init() {
 
 	session, err := mgo.Dial(db.DatabaseURL)
-	if err != nil  {
+	if err != nil {
 		log.Fatal(err)
 	}
 	defer session.Close()
 
 	index := mgo.Index{
-		Key:		[]string{"currencyid"},
-		Unique: 	true,
-		DropDups:	false,
+		Key:        []string{"currencyid"},
+		Unique:     true,
+		DropDups:   false,
 		Background: true,
-		Sparse: 	true,
+		Sparse:     true,
 	}
 
 	err = session.DB(db.DatabaseName).C(db.ColWebHook).EnsureIndex(index)
@@ -150,7 +149,7 @@ func (db *MongoDB) Count() int {
 	defer session.Close()
 
 	count, err := session.DB(db.DatabaseName).C(db.ColWebHook).Count()
-	if err != nil{
+	if err != nil {
 		log.Printf("Error in Count(): %v", err.Error())
 		return -1
 	}
@@ -158,7 +157,7 @@ func (db *MongoDB) Count() int {
 	return count
 }
 
-func DailyCurrencyAdder(){
+func DailyCurrencyAdder() {
 	currency := GetCurrency(URL)
 	db := SetupDB()
 	db.Init()
@@ -170,7 +169,7 @@ func CheckTrigger() {
 	db := SetupDB()
 	count := db.Count()
 
-	if count > 0{
+	if count > 0 {
 		webHook := Payload{}
 		session, err := mgo.Dial(db.DatabaseURL)
 		if err != nil {
@@ -182,14 +181,14 @@ func CheckTrigger() {
 		today := tempToday.Format("2006-01-02")
 
 		currency, ok := db.GetLatest(today)
-		if ok == false{
+		if ok == false {
 			log.Printf("Error in CheckTrigger() | There isn't any data for today yet")
 			return
 		}
 
 		for i := 1; i <= count; i++ {
-			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count-i).One(&webHook)
-			if err != nil{
+			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count - i).One(&webHook)
+			if err != nil {
 				log.Printf("Error in CheckTrigger() | Can not get one or more webhooks", err.Error())
 				return
 			}
@@ -199,12 +198,12 @@ func CheckTrigger() {
 			min := fmt.Sprint(webHook.MinTriggerValue)
 			max := fmt.Sprint(webHook.MaxTriggerValue)
 
-			if rate > webHook.MaxTriggerValue || rate < webHook.MinTriggerValue{
+			if rate > webHook.MaxTriggerValue || rate < webHook.MinTriggerValue {
 				text := "baseCurrency: " + webHook.BaseCurrency + "\ntargetCurrency: " + webHook.TargetCurrency + "\ncurrent: " + rateString + "\nminTriggerValue: " + min + "\nmaxTriggerValue: " + max
 				DiscordOperator(text, webHook.WebhookURL)
 			}
 		}
-	}else{
+	} else {
 		log.Printf("Error in CheckTrigger() | There is no recorded data in the webhook collection")
 	}
 }
