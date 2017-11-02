@@ -8,6 +8,8 @@ import (
 	"log"
 )
 
+const URL = "http://api.fixer.io/latest?base=EUR"
+
 
 func SetupDB() *MongoDB {
 	db := MongoDB{
@@ -70,7 +72,7 @@ func (db *MongoDB) Add(p Payload) error {
 func (db *MongoDB) Get(keyID string) (Payload, bool) {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err.Error())
 	}
 	defer session.Close()
 
@@ -157,7 +159,7 @@ func (db *MongoDB) Count() int {
 }
 
 func DailyCurrencyAdder(){
-	currency := GetCurrency()
+	currency := GetCurrency(URL)
 	db := SetupDB()
 	db.Init()
 	db.AddCurrency(currency)
