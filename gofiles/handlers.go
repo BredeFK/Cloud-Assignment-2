@@ -208,8 +208,3 @@ func HandleTestTrigger(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
-
-func HandleAdd(w http.ResponseWriter, r *http.Request) {
-	DailyCurrencyAdder()
-	CheckTrigger()
-}
