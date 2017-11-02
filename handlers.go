@@ -55,7 +55,7 @@ func HandleDELETE( w http.ResponseWriter, r *http.Request, getID string) {
 func HandleWebhook (w http.ResponseWriter, r *http.Request) {
 
 	URL := strings.Split(r.URL.Path, "/")
-	ObjectID := URL[1]
+	objectID := URL[1]
 
 	switch r.Method {
 
@@ -63,10 +63,10 @@ func HandleWebhook (w http.ResponseWriter, r *http.Request) {
 		HandlePOST(w, r)
 
 	case "GET":
-		HandleGET(w, r, ObjectID)
+		HandleGET(w, r, objectID)
 
 	case "DELETE":
-		HandleDELETE(w, r, ObjectID)
+		HandleDELETE(w, r, objectID)
 	}
 }
 
@@ -104,9 +104,14 @@ func HandleLatest (w http.ResponseWriter, r *http.Request) {
 	currency, ok := db.GetLatest(today)
 
 	if ok == false{
-		http.Error(w, "There isn't any data from today yet", 404)
-		return
+		tempToday = time.Now().Local().AddDate(0,0,-1)
+		yesterday := tempToday.Format("2006-01-02")
+		currency, ok = db.GetLatest(yesterday)
+		if ok == false{
+			http.Error(w, "Could not get any data from today or yesterday :/", 404)
+		}
 	}
+
 	rate := currency.Rates[payload.TargetCurrency]
 	fmt.Fprint(w, rate)
 }
@@ -186,7 +191,7 @@ func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
 		for i := 1; i<= count; i++{
 			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count-i).One(&webhook)
 			if err != nil{
-				log.Printf("Error in HandleTestTrigger() | Can not get one or more webhook data", err)
+				log.Printf("Error in HandleTestTrigger() | Can not get one or more webhook data", err.Error())
 				return
 			}
 
@@ -202,4 +207,9 @@ func HandleTestTrigger (w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "There isn't any data yet", 404)
 		return
 	}
+}
+
+func HandleAdd(w http.ResponseWriter, r *http.Request){
+	DailyCurrencyAdder()
+	CheckTrigger()
 }

@@ -8,10 +8,7 @@ import (
 	"encoding/json"
 )
 
-func GetCurrency() Currency{
-
-	URL := "http://api.fixer.io/latest?base=EUR"
-
+func GetCurrency(URL string) Currency{
 
 	client := http.Client{
 		Timeout: time.Second * 2,

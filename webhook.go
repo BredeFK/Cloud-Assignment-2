@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"bytes"
-	"fmt"
 	"io/ioutil"
+	"log"
 )
 
 func DiscordOperator (someText string, discordURL string) {
@@ -14,9 +14,9 @@ func DiscordOperator (someText string, discordURL string) {
 	raw, _ := json.Marshal(info)
 	resp, err := http.Post(discordURL, "application/json", bytes.NewBuffer(raw))
 	if err != nil {
-		fmt.Println(err)
-		fmt.Println(ioutil.ReadAll(resp.Body))
+		log.Println(err)
+		log.Println(ioutil.ReadAll(resp.Body))
 	}
 
-	fmt.Println(resp.StatusCode)
+	log.Println(resp.StatusCode)
 }
