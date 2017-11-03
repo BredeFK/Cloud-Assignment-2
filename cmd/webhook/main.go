@@ -9,7 +9,7 @@ func main(){
 
 	// Heroku scheduler =  16:30
 
-	triggerTime := "23:15"
+	triggerTime := "23:32"
 
 	for {
 		tempTime := time.Now().Local()

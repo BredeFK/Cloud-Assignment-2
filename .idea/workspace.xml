@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f23e0eb9-3d23-481f-8b87-b6bb01522602" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Procfile" afterPath="$PROJECT_DIR$/Procfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmd/webhook/main.go" afterPath="$PROJECT_DIR$/cmd/webhook/main.go" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -123,8 +121,8 @@
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/cmd/assignment2/main.go" />
         <option value="$PROJECT_DIR$/gofiles/handlers.go" />
-        <option value="$PROJECT_DIR$/cmd/webhook/main.go" />
         <option value="$PROJECT_DIR$/Procfile" />
+        <option value="$PROJECT_DIR$/cmd/webhook/main.go" />
       </list>
     </option>
   </component>
@@ -352,12 +350,12 @@
       <workItem from="1509640852714" duration="2620000" />
       <workItem from="1509644360724" duration="41000" />
       <workItem from="1509738741833" duration="2210000" />
-      <workItem from="1509744967003" duration="1530000" />
+      <workItem from="1509744967003" duration="2078000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92958000" />
+    <option name="totallyTimeSpent" value="93506000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
