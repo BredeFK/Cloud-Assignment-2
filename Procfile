@@ -1,2 +1,2 @@
 web: assignment2
-job: webhook
+one-off: webhook

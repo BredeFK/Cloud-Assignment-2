@@ -9,19 +9,16 @@ func main(){
 
 	// Heroku scheduler =  16:30
 
-	triggerTime := "23:32"
+	triggerTime := "16"
 
-	for {
-		tempTime := time.Now().Local()
-		timeNow := tempTime.Format("1504")	// format to 2400
+	tempTime := time.Now().Local()
+	timeNow := tempTime.Format("15")	// format to 2400
 
-		if timeNow == triggerTime {
-			gofiles.DailyCurrencyAdder()
-			gofiles.CheckTrigger()
-		}
-		delay := time.Minute
-		time.Sleep(delay)
+	if timeNow == triggerTime {
+		gofiles.DailyCurrencyAdder()
+		gofiles.CheckTrigger()
 	}
+
 }
 
 
