@@ -7,11 +7,11 @@ import (
 
 func main(){
 
-	// Heroku scheduler =  16:30
+	// Heroku scheduler =  11:00 UTC
 
-	triggerTime := "12"
+	const triggerTime = "11"
 
-	tempTime := time.Now().Local()
+	tempTime := time.Now().UTC()
 	timeNow := tempTime.Format("15")	// format to 2400
 
 	if timeNow == triggerTime {
