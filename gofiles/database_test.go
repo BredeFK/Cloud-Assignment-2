@@ -19,7 +19,7 @@ func TestMongoDB_GetLatest(t *testing.T) {
 
 	base := "EUR"
 	target := "THB"
-	rate := 38.505
+	rate := 38.305
 
 	if currency.Base != base {
 		t.Fatalf("Error! got '%s' instead of '%s'", currency.Base, base)
