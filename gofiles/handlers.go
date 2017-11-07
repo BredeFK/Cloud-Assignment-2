@@ -31,6 +31,8 @@ func HandlePOST(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
+	w.WriteHeader(http.StatusOK)
+
 	db := SetupDB()
 	db.Init()
 	db.Add(payload)

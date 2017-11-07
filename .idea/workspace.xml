@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f23e0eb9-3d23-481f-8b87-b6bb01522602" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/handlers.go" afterPath="$PROJECT_DIR$/gofiles/handlers.go" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -58,8 +57,8 @@
       <file leaf-file-name="handlers.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gofiles/handlers.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1320">
-              <caret line="119" column="77" lean-forward="false" selection-start-line="119" selection-start-column="77" selection-end-line="119" selection-end-column="77" />
+            <state relative-caret-position="412">
+              <caret line="33" column="32" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -378,12 +377,12 @@
       <workItem from="1510071914875" duration="480000" />
       <workItem from="1510072478413" duration="774000" />
       <workItem from="1510074125834" duration="297000" />
-      <workItem from="1510075125645" duration="236000" />
+      <workItem from="1510075125645" duration="427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104189000" />
+    <option name="totallyTimeSpent" value="104380000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -790,8 +789,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gofiles/handlers.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1320">
-          <caret line="119" column="77" lean-forward="false" selection-start-line="119" selection-start-column="77" selection-end-line="119" selection-end-column="77" />
+        <state relative-caret-position="412">
+          <caret line="33" column="32" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
           <folding />
         </state>
       </provider>
