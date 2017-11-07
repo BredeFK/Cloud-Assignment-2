@@ -1,4 +1,4 @@
-package main
+package gofiles
 
 import (
 	"encoding/json"
@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// HandlePOST handles post
 func HandlePOST(w http.ResponseWriter, r *http.Request) {
 
 	payload := Payload{}
@@ -27,6 +28,7 @@ func HandlePOST(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// HandleGET handles get
 func HandleGET(w http.ResponseWriter, r *http.Request, getID string) {
 
 	db := SetupDB()
@@ -40,6 +42,7 @@ func HandleGET(w http.ResponseWriter, r *http.Request, getID string) {
 	json.NewEncoder(w).Encode(payload)
 }
 
+// HandleDELETE handles delete
 func HandleDELETE(w http.ResponseWriter, r *http.Request, getID string) {
 
 	db := SetupDB()
@@ -52,6 +55,7 @@ func HandleDELETE(w http.ResponseWriter, r *http.Request, getID string) {
 	w.WriteHeader(http.StatusOK)
 }
 
+// HandleWebhook handles post, get or delete
 func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	URL := strings.Split(r.URL.Path, "/")
@@ -70,6 +74,7 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// HandleLatest handles latest
 func HandleLatest(w http.ResponseWriter, r *http.Request) {
 
 	payload := Payload{}
@@ -116,6 +121,7 @@ func HandleLatest(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, rate)
 }
 
+// HandleAverage handles average of 3 days
 func HandleAverage(w http.ResponseWriter, r *http.Request) {
 
 	const totalDays = 3
@@ -167,6 +173,7 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, average)
 }
 
+// HandleTestTrigger overrides triggercheck and sends to discord
 func HandleTestTrigger(w http.ResponseWriter, r *http.Request) {
 	db := SetupDB()
 	count := db.Count()
@@ -191,7 +198,7 @@ func HandleTestTrigger(w http.ResponseWriter, r *http.Request) {
 		for i := 1; i <= count; i++ {
 			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count - i).One(&webhook)
 			if err != nil {
-				log.Printf("Error in HandleTestTrigger() | Can not get one or more webhook data", err.Error())
+				log.Println("Error in HandleTestTrigger() | Can not get one or more webhook data", err.Error())
 				return
 			}
 

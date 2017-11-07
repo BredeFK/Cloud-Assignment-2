@@ -1,4 +1,4 @@
-package main
+package gofiles
 
 import "testing"
 
@@ -21,6 +21,6 @@ func TestGetCurrency(t *testing.T) {
 	}
 
 	if currency.Rates[target] != rate {
-		t.Fatalf("Error! got '%s' instead of '%s'", currency.Rates[target], rate)
+		t.Fatalf("Error! got '%v' instead of '%v'", currency.Rates[target], rate)
 	}
 }

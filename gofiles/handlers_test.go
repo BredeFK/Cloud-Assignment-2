@@ -1,4 +1,4 @@
-package main
+package gofiles
 
 import (
 	"gopkg.in/mgo.v2"

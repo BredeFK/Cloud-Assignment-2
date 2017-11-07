@@ -1,4 +1,4 @@
-package main
+package gofiles
 
 import (
 	"fmt"
@@ -8,8 +8,10 @@ import (
 	"time"
 )
 
+// URL url for fixer
 const URL = "http://api.fixer.io/latest?base=EUR"
 
+// SetupDB sets ub the db
 func SetupDB() *MongoDB {
 	db := MongoDB{
 		"mongodb://fritjof:mlab123@ds241395.mlab.com:41395/2imt2681",
@@ -28,6 +30,7 @@ func SetupDB() *MongoDB {
 	return &db
 }
 
+// Init initialising the db
 func (db *MongoDB) Init() {
 
 	session, err := mgo.Dial(db.DatabaseURL)
@@ -50,6 +53,7 @@ func (db *MongoDB) Init() {
 	}
 }
 
+// Add adds the db
 func (db *MongoDB) Add(p Payload) error {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
@@ -68,6 +72,7 @@ func (db *MongoDB) Add(p Payload) error {
 	return nil
 }
 
+// Get gets the db by ID
 func (db *MongoDB) Get(keyID string) (Payload, bool) {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
@@ -86,6 +91,7 @@ func (db *MongoDB) Get(keyID string) (Payload, bool) {
 	return payload, ok
 }
 
+// GetLatest gets the latest currency with date as index
 func (db *MongoDB) GetLatest(date string) (Currency, bool) {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
@@ -104,6 +110,7 @@ func (db *MongoDB) GetLatest(date string) (Currency, bool) {
 	return currency, notToday
 }
 
+// Delete deletes the db by ID
 func (db *MongoDB) Delete(keyID string) bool {
 
 	session, err := mgo.Dial(db.DatabaseURL)
@@ -122,6 +129,7 @@ func (db *MongoDB) Delete(keyID string) bool {
 	return ok
 }
 
+// AddCurrency adds currency
 func (db *MongoDB) AddCurrency(c Currency) error {
 
 	session, err := mgo.Dial(db.DatabaseURL)
@@ -141,6 +149,7 @@ func (db *MongoDB) AddCurrency(c Currency) error {
 	return nil
 }
 
+// Count counts the colWebhook
 func (db *MongoDB) Count() int {
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
@@ -157,6 +166,7 @@ func (db *MongoDB) Count() int {
 	return count
 }
 
+// DailyCurrencyAdder adds currency once a day
 func DailyCurrencyAdder() {
 	currency := GetCurrency(URL)
 	db := SetupDB()
@@ -164,6 +174,7 @@ func DailyCurrencyAdder() {
 	db.AddCurrency(currency)
 }
 
+// CheckTrigger checks if the currency is over max or under min
 func CheckTrigger() {
 
 	db := SetupDB()
@@ -189,7 +200,7 @@ func CheckTrigger() {
 		for i := 1; i <= count; i++ {
 			err = session.DB(db.DatabaseName).C(db.ColWebHook).Find(nil).Skip(count - i).One(&webHook)
 			if err != nil {
-				log.Printf("Error in CheckTrigger() | Can not get one or more webhooks", err.Error())
+				log.Println("Error in CheckTrigger() | Can not get one or more webhooks", err.Error())
 				return
 			}
 

@@ -9,15 +9,16 @@
 package main
 
 import (
+	"Oblig2_Heroku/gofiles"
 	"net/http"
 	"os"
 )
 
 func main() {
 	port := os.Getenv("PORT")
-	http.HandleFunc("/", HandleWebhook)
-	http.HandleFunc("/latest", HandleLatest)
-	http.HandleFunc("/average", HandleAverage)
-	http.HandleFunc("/evaluationtrigger", HandleTestTrigger)
+	http.HandleFunc("/", gofiles.HandleWebhook)
+	http.HandleFunc("/latest", gofiles.HandleLatest)
+	http.HandleFunc("/average", gofiles.HandleAverage)
+	http.HandleFunc("/evaluationtrigger", gofiles.HandleTestTrigger)
 	http.ListenAndServe(":"+port, nil)
 }
