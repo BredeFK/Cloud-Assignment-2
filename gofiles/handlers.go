@@ -86,10 +86,10 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 			HandleDELETE(w, r, objectID)
 
 		default:
-			http.Error(w, "Method has to be GET, POST or DELETE", http.StatusMethodNotAllowed)
+			http.Error(w, "Method has to be GET, POST or DELETE", http.StatusBadRequest)
 		}
 	} else {
-		http.Error(w, "Invalid URL", http.StatusMethodNotAllowed)
+		http.Error(w, "Invalid URL", http.StatusBadRequest)
 	}
 }
 
@@ -117,7 +117,7 @@ func HandleLatest(w http.ResponseWriter, r *http.Request) {
 		payload.TargetCurrency = "NOK"
 
 	default:
-		http.Error(w, "Method has to be POST (or GET)", http.StatusMethodNotAllowed)
+		http.Error(w, "Method has to be POST (or GET)", http.StatusBadRequest)
 		return
 	}
 
@@ -157,7 +157,7 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 
 		if payload.BaseCurrency != "EUR" {
-			http.Error(w, payload.BaseCurrency+" is not implemented to be baseCurrency", http.StatusNotImplemented)
+			http.Error(w, payload.BaseCurrency+" is not implemented to be baseCurrency", http.StatusBadRequest)
 			return
 		}
 	case "GET":
@@ -166,7 +166,7 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 		payload.TargetCurrency = "NOK"
 
 	default:
-		http.Error(w, "Method has to be POST (or GET)", http.StatusMethodNotAllowed)
+		http.Error(w, "Method has to be POST (or GET)", http.StatusBadRequest)
 		return
 	}
 
