@@ -1,59 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f23e0eb9-3d23-481f-8b87-b6bb01522602" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/auth.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/bson.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/decimal.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/decode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/encode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/json.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bulk.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/cluster.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/doc.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/gridfs.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/decode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/encode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/extension.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/fold.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/indent.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/scanner.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/stream.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/tags.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl_windows.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl_windows.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl_windows.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sspi_windows.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sspi_windows.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/scram/scram.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/log.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/queue.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/raceoff.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/raceon.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/saslimpl.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/saslstub.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/server.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/session.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/socket.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/stats.go" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmd/assignment2/main.go" afterPath="$PROJECT_DIR$/cmd/assignment2/main.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmd/webhook/main.go" afterPath="$PROJECT_DIR$/cmd/webhook/main.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/database.go" afterPath="$PROJECT_DIR$/gofiles/database.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/database_test.go" afterPath="$PROJECT_DIR$/gofiles/database_test.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/getfunc.go" afterPath="$PROJECT_DIR$/gofiles/getfunc.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/getfunc_test.go" afterPath="$PROJECT_DIR$/gofiles/getfunc_test.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/handlers.go" afterPath="$PROJECT_DIR$/gofiles/handlers.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/structs.go" afterPath="$PROJECT_DIR$/gofiles/structs.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/webhook.go" afterPath="$PROJECT_DIR$/gofiles/webhook.go" />
-    </list>
+    <list default="true" id="f23e0eb9-3d23-481f-8b87-b6bb01522602" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -116,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/gofiles/structs.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
-              <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+              <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
               <folding>
                 <element signature="e#17#51#0" expanded="true" />
               </folding>
@@ -409,12 +357,12 @@
       <workItem from="1509919582049" duration="478000" />
       <workItem from="1509920440397" duration="1167000" />
       <workItem from="1509924417710" duration="42000" />
-      <workItem from="1510061884482" duration="4106000" />
+      <workItem from="1510061884482" duration="4219000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101325000" />
+    <option name="totallyTimeSpent" value="101438000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -427,7 +375,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -869,7 +816,7 @@
     <entry file="file://$PROJECT_DIR$/gofiles/structs.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+          <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
           <folding>
             <element signature="e#17#51#0" expanded="true" />
           </folding>
