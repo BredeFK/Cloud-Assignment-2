@@ -10,22 +10,22 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "1qMEvML0xHG5UEKIO11cTz+/6SM=",
+			"checksumSHA1": "VxAXXpMXV6pCDO6Ue3PrAQH5R9o=",
 			"path": "bitbucket.org/Brede_F_Klausen/assignment2_cloud/cmd/assignment2",
-			"revision": "297d3a155ec5f8dde73f87fc9060cf96b976e36f",
-			"revisionTime": "2017-11-07T15:30:56Z"
+			"revision": "6ce5cacd34f2a12d0f3100c7cc4839bfcfbf5fee",
+			"revisionTime": "2017-11-07T16:08:39Z"
 		},
 		{
-			"checksumSHA1": "7iPaH/16trojr7YFoKHCNs5DQl0=",
+			"checksumSHA1": "DR/5DNR34mEJ7XInSMmZ0i/CKPM=",
 			"path": "bitbucket.org/Brede_F_Klausen/assignment2_cloud/cmd/webhook",
-			"revision": "297d3a155ec5f8dde73f87fc9060cf96b976e36f",
-			"revisionTime": "2017-11-07T15:30:56Z"
+			"revision": "6ce5cacd34f2a12d0f3100c7cc4839bfcfbf5fee",
+			"revisionTime": "2017-11-07T16:08:39Z"
 		},
 		{
-			"checksumSHA1": "b68HGmSXPwOq6nGqbGCbMmh25y8=",
+			"checksumSHA1": "/xt+iPToiEnUO19bzweUcQxFfGo=",
 			"path": "bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles",
-			"revision": "297d3a155ec5f8dde73f87fc9060cf96b976e36f",
-			"revisionTime": "2017-11-07T15:30:56Z"
+			"revision": "6ce5cacd34f2a12d0f3100c7cc4839bfcfbf5fee",
+			"revisionTime": "2017-11-07T16:08:39Z"
 		}
 	],
 	"rootPath": "bitbucket.org/Brede_F_Klausen/assignment2_cloud"

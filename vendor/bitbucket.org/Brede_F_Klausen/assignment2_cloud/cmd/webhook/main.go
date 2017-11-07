@@ -1,7 +1,16 @@
+//==================================================================================================\\
+// 		   AUTHOR: 	Brede Fritjof Klausen		  				  								    \\
+// 		  SUBJECT: 	IMT2681 Cloud Technologies													    \\
+//==================================================================================================\\
+//	SOURCES:												 									    \\
+// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang  \\
+// * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
+//==================================================================================================\\
+
 package main
 
 import (
-	"Oblig2_Heroku/gofiles"
+	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
 )
 
 func main() {

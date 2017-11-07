@@ -1,3 +1,12 @@
+//==================================================================================================\\
+// 		   AUTHOR: 	Brede Fritjof Klausen		  				  								    \\
+// 		  SUBJECT: 	IMT2681 Cloud Technologies													    \\
+//==================================================================================================\\
+//	SOURCES:												 									    \\
+// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang  \\
+// * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
+//==================================================================================================\\
+
 package gofiles
 
 import (
@@ -22,6 +31,8 @@ func HandlePOST(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
+	w.WriteHeader(http.StatusOK)
+
 	db := SetupDB()
 	db.Init()
 	db.Add(payload)
@@ -37,6 +48,8 @@ func HandleGET(w http.ResponseWriter, r *http.Request, getID string) {
 		http.Error(w, "ObjectID not found", http.StatusBadRequest)
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
 
 	json.Marshal(&payload)
 	json.NewEncoder(w).Encode(payload)
@@ -59,18 +72,37 @@ func HandleDELETE(w http.ResponseWriter, r *http.Request, getID string) {
 func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	URL := strings.Split(r.URL.Path, "/")
+	length := len(URL[1])
 	objectID := URL[1]
 
 	switch r.Method {
 
 	case "POST":
-		HandlePOST(w, r)
+		if length == 0 {
+			HandlePOST(w, r)
+			w.WriteHeader(http.StatusOK)
+		} else {
+			http.Error(w, "Invalid URL", http.StatusBadRequest)
+		}
 
 	case "GET":
-		HandleGET(w, r, objectID)
+		if length == 24 {
+			HandleGET(w, r, objectID)
+			w.WriteHeader(http.StatusOK)
+		} else {
+			http.Error(w, "Invalid URL", http.StatusBadRequest)
+		}
 
 	case "DELETE":
-		HandleDELETE(w, r, objectID)
+		if length == 24 {
+			HandleDELETE(w, r, objectID)
+			w.WriteHeader(http.StatusOK)
+		} else {
+			http.Error(w, "Invalid URL", http.StatusBadRequest)
+		}
+
+	default:
+		http.Error(w, "Method has to be GET, POST or DELETE", http.StatusBadRequest)
 	}
 }
 
@@ -98,7 +130,7 @@ func HandleLatest(w http.ResponseWriter, r *http.Request) {
 		payload.TargetCurrency = "NOK"
 
 	default:
-		http.Error(w, "Method has to be POST (or GET)", http.StatusMethodNotAllowed)
+		http.Error(w, "Method has to be POST (or GET)", http.StatusBadRequest)
 		return
 	}
 
@@ -138,7 +170,7 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 
 		if payload.BaseCurrency != "EUR" {
-			http.Error(w, payload.BaseCurrency+" is not implemented to be baseCurrency", http.StatusNotImplemented)
+			http.Error(w, payload.BaseCurrency+" is not implemented to be baseCurrency", http.StatusBadRequest)
 			return
 		}
 	case "GET":
@@ -147,7 +179,7 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 		payload.TargetCurrency = "NOK"
 
 	default:
-		http.Error(w, "Method has to be POST (or GET)", http.StatusMethodNotAllowed)
+		http.Error(w, "Method has to be POST (or GET)", http.StatusBadRequest)
 		return
 	}
 
