@@ -1,6 +1,32 @@
 {
 	"comment": "",
+	"heroku":{
+	"goVersion":"go1.9",
+	"install":[
+		"./cmd/assignment2",
+		"./cmd/webhook"
+		]
+	},
 	"ignore": "test",
-	"package": [],
-	"rootPath": "Oblig2_Heroku"
+	"package": [
+		{
+			"checksumSHA1": "1qMEvML0xHG5UEKIO11cTz+/6SM=",
+			"path": "bitbucket.org/Brede_F_Klausen/assignment2_cloud/cmd/assignment2",
+			"revision": "297d3a155ec5f8dde73f87fc9060cf96b976e36f",
+			"revisionTime": "2017-11-07T15:30:56Z"
+		},
+		{
+			"checksumSHA1": "7iPaH/16trojr7YFoKHCNs5DQl0=",
+			"path": "bitbucket.org/Brede_F_Klausen/assignment2_cloud/cmd/webhook",
+			"revision": "297d3a155ec5f8dde73f87fc9060cf96b976e36f",
+			"revisionTime": "2017-11-07T15:30:56Z"
+		},
+		{
+			"checksumSHA1": "b68HGmSXPwOq6nGqbGCbMmh25y8=",
+			"path": "bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles",
+			"revision": "297d3a155ec5f8dde73f87fc9060cf96b976e36f",
+			"revisionTime": "2017-11-07T15:30:56Z"
+		}
+	],
+	"rootPath": "bitbucket.org/Brede_F_Klausen/assignment2_cloud"
 }
