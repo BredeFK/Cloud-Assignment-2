@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f23e0eb9-3d23-481f-8b87-b6bb01522602" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/handlers.go" afterPath="$PROJECT_DIR$/gofiles/handlers.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gofiles/handlers_test.go" afterPath="$PROJECT_DIR$/gofiles/handlers_test.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/bson.go" afterPath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/bson.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/decode.go" afterPath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/decode.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/scram/scram.go" afterPath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/scram/scram.go" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/gofiles/handlers.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="259">
-              <caret line="92" column="33" lean-forward="true" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
+              <caret line="92" column="39" lean-forward="false" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -394,12 +389,12 @@
       <workItem from="1510074125834" duration="297000" />
       <workItem from="1510075125645" duration="2283000" />
       <workItem from="1510077507586" duration="137000" />
-      <workItem from="1510088529514" duration="90000" />
+      <workItem from="1510088529514" duration="391000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106463000" />
+    <option name="totallyTimeSpent" value="106764000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -421,7 +416,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29319373" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29319373" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -805,7 +800,7 @@
     <entry file="file://$PROJECT_DIR$/gofiles/handlers.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
-          <caret line="92" column="33" lean-forward="true" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
+          <caret line="92" column="39" lean-forward="false" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
           <folding />
         </state>
       </provider>
