@@ -81,6 +81,7 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		if length == 0 {
 			HandlePOST(w, r)
+			w.WriteHeader(http.StatusOK)
 		}else{
 			http.Error(w, "Invalid URL", http.StatusBadRequest)
 		}
@@ -88,13 +89,15 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		if length == 24 {
 			HandleGET(w, r, objectID)
+			w.WriteHeader(http.StatusOK)
 		}else{
-			http.Error(w, "Invalid URL", http.StatusBadGateway)
+			http.Error(w, "Invalid URL", http.StatusBadRequest)
 		}
 
 	case "DELETE":
 		if length == 24 {
 			HandleDELETE(w, r, objectID)
+			w.WriteHeader(http.StatusOK)
 		}else{
 			http.Error(w, "Invalid URL", http.StatusBadRequest)
 		}
