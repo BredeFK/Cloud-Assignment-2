@@ -9,7 +9,7 @@
 package main
 
 import (
-	"Oblig2_Heroku/gofiles"
+	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
 	"net/http"
 	"os"
 )
