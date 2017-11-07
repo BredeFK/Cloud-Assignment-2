@@ -1,3 +1,12 @@
+//==================================================================================================\\
+// 		   AUTHOR: 	Brede Fritjof Klausen		  				  								    \\
+// 		  SUBJECT: 	IMT2681 Cloud Technologies													    \\
+//==================================================================================================\\
+//	SOURCES:												 									    \\
+// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang  \\
+// * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
+//==================================================================================================\\
+
 package gofiles
 
 import (
@@ -38,6 +47,8 @@ func HandleGET(w http.ResponseWriter, r *http.Request, getID string) {
 		return
 	}
 
+	w.WriteHeader(http.StatusOK)
+
 	json.Marshal(&payload)
 	json.NewEncoder(w).Encode(payload)
 }
@@ -59,18 +70,26 @@ func HandleDELETE(w http.ResponseWriter, r *http.Request, getID string) {
 func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	URL := strings.Split(r.URL.Path, "/")
-	objectID := URL[1]
+	if len(URL[1]) == 24 {
 
-	switch r.Method {
+		objectID := URL[1]
 
-	case "POST":
-		HandlePOST(w, r)
+		switch r.Method {
 
-	case "GET":
-		HandleGET(w, r, objectID)
+		case "POST":
+			HandlePOST(w, r)
 
-	case "DELETE":
-		HandleDELETE(w, r, objectID)
+		case "GET":
+			HandleGET(w, r, objectID)
+
+		case "DELETE":
+			HandleDELETE(w, r, objectID)
+
+		default:
+			http.Error(w, "Method has to be GET, POST or DELETE", http.StatusMethodNotAllowed)
+		}
+	} else {
+		http.Error(w, "Invalid URL", http.StatusMethodNotAllowed)
 	}
 }
 

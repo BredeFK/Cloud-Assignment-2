@@ -1,3 +1,12 @@
+//==================================================================================================\\
+// 		   AUTHOR: 	Brede Fritjof Klausen		  				  								    \\
+// 		  SUBJECT: 	IMT2681 Cloud Technologies													    \\
+//==================================================================================================\\
+//	SOURCES:												 									    \\
+// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang  \\
+// * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
+//==================================================================================================\\
+
 package gofiles
 
 import (
@@ -42,9 +51,9 @@ func TestHandleWebhook(t *testing.T) {
 
 	http.HandlerFunc(HandleWebhook).ServeHTTP(resp, req)
 
-	if status := resp.Code; status != http.StatusOK {
+	if status := resp.Code; status != http.StatusMethodNotAllowed {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
+			status, http.StatusMethodNotAllowed)
 	}
 }
 

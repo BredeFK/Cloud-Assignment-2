@@ -1,3 +1,12 @@
+//==================================================================================================\\
+// 		   AUTHOR: 	Brede Fritjof Klausen		  				  								    \\
+// 		  SUBJECT: 	IMT2681 Cloud Technologies													    \\
+//==================================================================================================\\
+//	SOURCES:												 									    \\
+// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang  \\
+// * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
+//==================================================================================================\\
+
 package gofiles
 
 import (
@@ -19,7 +28,7 @@ func TestMongoDB_GetLatest(t *testing.T) {
 
 	base := "EUR"
 	target := "THB"
-	rate := 38.505
+	rate := 38.305
 
 	if currency.Base != base {
 		t.Fatalf("Error! got '%s' instead of '%s'", currency.Base, base)
