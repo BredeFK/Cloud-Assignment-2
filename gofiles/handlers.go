@@ -90,8 +90,7 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 			HandleGET(w, r, objectID)
 			w.WriteHeader(http.StatusOK)
 		} else {
-			log.Println("Object id is: " + objectID)
-			//http.Error(w, "Invalid URL", http.StatusBadRequest)
+			http.Error(w, "Invalid URL", http.StatusBadRequest)
 		}
 
 	case "DELETE":
