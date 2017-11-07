@@ -32,10 +32,11 @@ func HandlePOST(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	output := payload.ID
-	output = bson.NewObjectId()
 
-	fmt.Fprintf(w, "%s", output)
+	payload.ID = bson.NewObjectId()
+
+
+	fmt.Fprintf(w, "%s", payload.ID.Hex())
 	w.WriteHeader(http.StatusOK)
 
 	db := SetupDB()
