@@ -19,7 +19,6 @@ import (
 	"time"
 )
 
-
 // HandlePOST handles post
 func HandlePOST(w http.ResponseWriter, r *http.Request) {
 
@@ -82,7 +81,7 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 		if length == 0 {
 			HandlePOST(w, r)
 			w.WriteHeader(http.StatusOK)
-		}else{
+		} else {
 			http.Error(w, "Invalid URL", http.StatusBadRequest)
 		}
 
@@ -90,15 +89,16 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 		if length == 24 {
 			HandleGET(w, r, objectID)
 			w.WriteHeader(http.StatusOK)
-		}else{
-			http.Error(w, "Invalid URL", http.StatusBadRequest)
+		} else {
+			log.Println(objectID)
+			//http.Error(w, "Invalid URL", http.StatusBadRequest)
 		}
 
 	case "DELETE":
 		if length == 24 {
 			HandleDELETE(w, r, objectID)
 			w.WriteHeader(http.StatusOK)
-		}else{
+		} else {
 			http.Error(w, "Invalid URL", http.StatusBadRequest)
 		}
 
@@ -106,7 +106,6 @@ func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method has to be GET, POST or DELETE", http.StatusBadRequest)
 	}
 }
-
 
 // HandleLatest handles latest
 func HandleLatest(w http.ResponseWriter, r *http.Request) {

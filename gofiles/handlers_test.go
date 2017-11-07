@@ -51,9 +51,9 @@ func TestHandleWebhook(t *testing.T) {
 
 	http.HandlerFunc(HandleWebhook).ServeHTTP(resp, req)
 
-	if status := resp.Code; status != http.StatusMethodNotAllowed {
+	if status := resp.Code; status != http.StatusBadRequest {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusMethodNotAllowed)
+			status, http.StatusBadRequest)
 	}
 }
 
@@ -100,7 +100,7 @@ func TestHandleLatest(t *testing.T) {
 
 	HandleLatest(respTest, reqTest)
 
-	if status := respTest.Code; status != http.StatusMethodNotAllowed {
+	if status := respTest.Code; status != http.StatusBadRequest {
 		t.Errorf("Method has to be POST (or GET)")
 	}
 
@@ -129,7 +129,7 @@ func TestHandleAverage(t *testing.T) {
 
 	HandleAverage(respTest, reqTest)
 
-	if status := respTest.Code; status != http.StatusMethodNotAllowed {
+	if status := respTest.Code; status != http.StatusBadRequest {
 		t.Errorf("Method has to be POST (or GET)")
 	}
 
