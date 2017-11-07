@@ -72,10 +72,8 @@ func HandleDELETE(w http.ResponseWriter, r *http.Request, getID string) {
 func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	URL := strings.Split(r.URL.Path, "/")
-	fmt.Fprintln(w, len(URL[1]))
-	fmt.Fprintln(w, URL[1])
 
-	if len(URL[1]) == 24{
+	if len(URL[1]) == 24 || len(URL[1]) == 0{
 
 		objectID := URL[1]
 
