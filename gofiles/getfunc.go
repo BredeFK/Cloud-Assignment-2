@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// GetCurrency gets the currency from URL
 func GetCurrency(URL string) Currency {
 
 	client := http.Client{

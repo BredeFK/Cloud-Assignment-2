@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// DiscordOperator sends a message to Discord
 func DiscordOperator(someText string, discordURL string) {
 	info := WebhookInfo{}
 	info.Content = someText + "\n"

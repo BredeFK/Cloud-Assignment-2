@@ -8,7 +8,7 @@ import (
 
 func TestMongoDB_GetLatest(t *testing.T) {
 
-	today := "2017-11-01"
+	today := "2017-11-07"
 
 	testDB := SetupDB()
 	currency, ok := testDB.GetLatest(today)
@@ -26,7 +26,7 @@ func TestMongoDB_GetLatest(t *testing.T) {
 	}
 
 	if currency.Rates[target] != rate {
-		t.Fatalf("Error! got '%s' instead of '%s'", currency.Rates[target], rate)
+		t.Fatalf("Error! got '%v' instead of '%v'", currency.Rates[target], rate)
 	}
 
 	if currency.Date != today {
