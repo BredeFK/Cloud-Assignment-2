@@ -26,7 +26,7 @@ func HandlePOST(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&payload)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusAlreadyReported)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	defer r.Body.Close()
@@ -72,7 +72,10 @@ func HandleDELETE(w http.ResponseWriter, r *http.Request, getID string) {
 func HandleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	URL := strings.Split(r.URL.Path, "/")
-	if len(URL[1]) == 24 {
+	fmt.Fprintln(w, len(URL[1]))
+	fmt.Fprintln(w, URL[1])
+
+	if len(URL[1]) == 24{
 
 		objectID := URL[1]
 
