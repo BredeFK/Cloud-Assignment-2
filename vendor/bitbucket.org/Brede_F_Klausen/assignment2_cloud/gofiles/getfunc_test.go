@@ -7,20 +7,29 @@
 // * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
 //==================================================================================================\\
 
-package main
+package gofiles
 
-import (
-<<<<<<< HEAD
-	"Oblig2_Heroku/gofiles"
-=======
-	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
->>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
-)
+import "testing"
 
-func main() {
+func TestGetCurrency(t *testing.T) {
+	testURL := "http://api.fixer.io/2016-12-30"
 
-	// Heroku scheduler =  15:30 UTC
+	currency := GetCurrency(testURL)
 
-	gofiles.DailyCurrencyAdder()
-	gofiles.CheckTrigger()
+	base := "EUR"
+	date := "2016-12-30"
+	target := "NOK"
+	rate := 9.0863
+
+	if currency.Base != base {
+		t.Fatalf("Error! got '%s' instead of '%s'", currency.Base, base)
+	}
+
+	if currency.Date != date {
+		t.Fatalf("Error! got '%s' instead of '%s'", currency.Date, date)
+	}
+
+	if currency.Rates[target] != rate {
+		t.Fatalf("Error! got '%v' instead of '%v'", currency.Rates[target], rate)
+	}
 }

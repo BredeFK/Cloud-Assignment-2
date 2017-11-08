@@ -7,20 +7,45 @@
 // * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
 //==================================================================================================\\
 
-package main
+package gofiles
 
 import (
-<<<<<<< HEAD
-	"Oblig2_Heroku/gofiles"
-=======
-	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
->>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
+	"encoding/json"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"time"
 )
 
-func main() {
+// GetCurrency gets the currency from URL
+func GetCurrency(URL string) Currency {
 
-	// Heroku scheduler =  15:30 UTC
+	client := http.Client{
+		Timeout: time.Second * 2,
+	}
 
-	gofiles.DailyCurrencyAdder()
-	gofiles.CheckTrigger()
+	req, err := http.NewRequest(http.MethodGet, URL, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	req.Header.Set("User-Agent", "Assignment")
+
+	res, getErr := client.Do(req)
+	if getErr != nil {
+		log.Fatal(getErr)
+	}
+
+	body, readErr := ioutil.ReadAll(res.Body)
+	if readErr != nil {
+		log.Fatal(readErr)
+	}
+
+	currency := Currency{}
+	jsonErr := json.Unmarshal(body, &currency)
+	if jsonErr != nil {
+		log.Fatal(jsonErr)
+	}
+
+	return currency
 }

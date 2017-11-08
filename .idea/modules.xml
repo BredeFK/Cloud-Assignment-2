@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/Oblig2_Heroku.iml" filepath="$PROJECT_DIR$/Oblig2_Heroku.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/assignment2_cloud.iml" filepath="$PROJECT_DIR$/.idea/assignment2_cloud.iml" />
+>>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
     </modules>
   </component>
 </project>

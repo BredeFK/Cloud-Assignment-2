@@ -10,17 +10,16 @@
 package main
 
 import (
-<<<<<<< HEAD
-	"Oblig2_Heroku/gofiles"
-=======
 	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
->>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
+	"net/http"
+	"os"
 )
 
 func main() {
-
-	// Heroku scheduler =  15:30 UTC
-
-	gofiles.DailyCurrencyAdder()
-	gofiles.CheckTrigger()
+	port := os.Getenv("PORT")
+	http.HandleFunc("/", gofiles.HandleWebhook)
+	http.HandleFunc("/latest", gofiles.HandleLatest)
+	http.HandleFunc("/average", gofiles.HandleAverage)
+	http.HandleFunc("/evaluationtrigger", gofiles.HandleTestTrigger)
+	http.ListenAndServe(":"+port, nil)
 }

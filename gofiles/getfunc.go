@@ -21,7 +21,11 @@ import (
 func GetCurrency(URL string) Currency {
 
 	client := http.Client{
+<<<<<<< HEAD
 		Timeout: time.Second * 5,
+=======
+		Timeout: time.Second * 2,
+>>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
 	}
 
 	req, err := http.NewRequest(http.MethodGet, URL, nil)

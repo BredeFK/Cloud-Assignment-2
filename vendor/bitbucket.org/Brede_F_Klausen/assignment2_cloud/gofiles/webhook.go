@@ -7,20 +7,26 @@
 // * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
 //==================================================================================================\\
 
-package main
+package gofiles
 
 import (
-<<<<<<< HEAD
-	"Oblig2_Heroku/gofiles"
-=======
-	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
->>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
+	"bytes"
+	"encoding/json"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
 
-func main() {
+// DiscordOperator sends a message to Discord
+func DiscordOperator(someText string, discordURL string) {
+	info := WebhookInfo{}
+	info.Content = someText + "\n"
+	raw, _ := json.Marshal(info)
+	resp, err := http.Post(discordURL, "application/json", bytes.NewBuffer(raw))
+	if err != nil {
+		log.Println(err)
+		log.Println(ioutil.ReadAll(resp.Body))
+	}
 
-	// Heroku scheduler =  15:30 UTC
-
-	gofiles.DailyCurrencyAdder()
-	gofiles.CheckTrigger()
+	log.Println(resp.StatusCode)
 }

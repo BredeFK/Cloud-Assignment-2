@@ -17,10 +17,6 @@ import (
 	"net/http"
 	"strings"
 	"time"
-<<<<<<< HEAD
-	"gopkg.in/mgo.v2/bson"
-=======
->>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
 )
 
 // HandlePOST handles post
@@ -35,14 +31,6 @@ func HandlePOST(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-<<<<<<< HEAD
-
-	payload.ID = bson.NewObjectId()
-
-
-	fmt.Fprintf(w, "%s", payload.ID.Hex())
-=======
->>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
 	w.WriteHeader(http.StatusOK)
 
 	db := SetupDB()

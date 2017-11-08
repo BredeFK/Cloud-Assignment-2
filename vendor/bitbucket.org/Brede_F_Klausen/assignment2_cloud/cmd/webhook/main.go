@@ -10,11 +10,7 @@
 package main
 
 import (
-<<<<<<< HEAD
-	"Oblig2_Heroku/gofiles"
-=======
 	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
->>>>>>> 0d9578bbeb1cb90d40d1a0ab9bb405a052d78ed0
 )
 
 func main() {
