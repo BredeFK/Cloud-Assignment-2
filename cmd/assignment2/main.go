@@ -13,7 +13,6 @@ package main
 import (
 	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
 	"net/http"
-
 	"os"
 )
 
@@ -24,5 +23,4 @@ func main() {
 	http.HandleFunc("/average", gofiles.HandleAverage)
 	http.HandleFunc("/evaluationtrigger", gofiles.HandleTestTrigger)
 	http.ListenAndServe(":"+port, nil)
-//	http.ListenAndServe("localhost:8080", nil)
 }

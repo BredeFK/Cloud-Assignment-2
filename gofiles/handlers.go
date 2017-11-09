@@ -13,12 +13,11 @@ package gofiles
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"log"
 	"net/http"
 	"strings"
-	"time"
-	"gopkg.in/mgo.v2"
-	"log"
 )
 
 // HandlePOST handles post
@@ -138,19 +137,11 @@ func HandleLatest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tempToday := time.Now().Local()
-	today := tempToday.Format("2006-01-02")
-
 	db := SetupDB()
-	currency, ok := db.GetLatest(today)
+	currency, ok := db.GetLatest("noDate", 1)
 
 	if ok == false {
-		tempToday = time.Now().Local().AddDate(0, 0, -1)
-		yesterday := tempToday.Format("2006-01-02")
-		currency, ok = db.GetLatest(yesterday)
-		if ok == false {
-			http.Error(w, "Could not get any data from today or yesterday :/", 404)
-		}
+		http.Error(w, "There isn't any data yet", 404)
 	}
 
 	rate := currency.Rates[payload.TargetCurrency]
@@ -187,17 +178,12 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tempToday := time.Now().Local()
-	today := tempToday.Format("2006-01-02")
-
 	db := SetupDB()
 	sum := 0.0000
 
 	for i := 0; i < totalDays; i++ {
-		tempToday = time.Now().Local().AddDate(0, 0, -i)
-		today = tempToday.Format("2006-01-02")
 
-		currency, ok := db.GetLatest(today)
+		currency, ok := db.GetLatest("noDate", i+1)
 		if ok == false {
 			http.Error(w, "There isn't any data for all the days yet", 404)
 			return
@@ -222,9 +208,9 @@ func HandleTestTrigger(w http.ResponseWriter, r *http.Request) {
 		}
 		defer session.Close()
 
-		currency, ok := db.GetLatest("noDate")
+		currency, ok := db.GetLatest("noDate", 1)
 		if ok == false {
-			http.Error(w, "There isn't any data", 404)
+			http.Error(w, "There isn't any data yet", 404)
 			return
 		}
 

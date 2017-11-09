@@ -15,7 +15,6 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"log"
-	"time"
 )
 
 // URL url for fixer
@@ -102,7 +101,7 @@ func (db *MongoDB) Get(keyID string) (Payload, bool) {
 }
 
 // GetLatest gets the latest currency with date as index
-func (db *MongoDB) GetLatest(date string) (Currency, bool) {
+func (db *MongoDB) GetLatest(date string, number int) (Currency, bool) {
 	count := db.Count()
 	notToday := true
 	currency := Currency{}
@@ -115,17 +114,15 @@ func (db *MongoDB) GetLatest(date string) (Currency, bool) {
 		defer session.Close()
 		count := 2
 
-
-
 		if date != "noDate" {
 			err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(bson.M{"date": date}).One(&currency)
 		} else {
-			err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(nil).Skip(count - 1).One(&currency)
+			err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(nil).Skip(count - number).One(&currency)
 		}
 		if err != nil {
 			notToday = false
 		}
-	}else{
+	} else {
 		notToday = false
 	}
 
@@ -210,10 +207,7 @@ func CheckTrigger() {
 		}
 		defer session.Close()
 
-		tempToday := time.Now().Local()
-		today := tempToday.Format("2006-01-02")
-
-		currency, ok := db.GetLatest(today)
+		currency, ok := db.GetLatest("noDate", 1)
 		if ok == false {
 			log.Printf("Error in CheckTrigger() | There isn't any data for today yet")
 			return

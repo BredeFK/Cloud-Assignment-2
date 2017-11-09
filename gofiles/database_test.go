@@ -21,7 +21,7 @@ func TestMongoDB_GetLatest(t *testing.T) {
 	today := "2017-11-07"
 
 	testDB := SetupDB()
-	currency, ok := testDB.GetLatest(today)
+	currency, ok := testDB.GetLatest(today, 0)
 
 	if ok == false {
 		t.Fatalf("Couldn't get any data from " + today + "!")
