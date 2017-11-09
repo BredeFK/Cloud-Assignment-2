@@ -13,7 +13,7 @@ package gofiles
 import "testing"
 
 func TestGetCurrency(t *testing.T) {
-	testURL := "http://api.fixer.io/2016-12-30"
+	testURL := "http://api.fixer.io/2016-12-30?base=EUR"
 
 	currency := GetCurrency(testURL)
 

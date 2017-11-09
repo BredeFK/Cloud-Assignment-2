@@ -138,7 +138,7 @@ func HandleLatest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := SetupDB()
-	currency, ok := db.GetLatest("noDate", 1)
+	currency, ok := db.GetLatest("noDate", 0)
 
 	if ok == false {
 		http.Error(w, "There isn't any data yet", 404)
@@ -183,7 +183,7 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < totalDays; i++ {
 
-		currency, ok := db.GetLatest("noDate", i+1)
+		currency, ok := db.GetLatest("noDate", i)
 		if ok == false {
 			http.Error(w, "There isn't any data for all the days yet", 404)
 			return
@@ -228,6 +228,7 @@ func HandleTestTrigger(w http.ResponseWriter, r *http.Request) {
 			text := "baseCurrency: " + webhook.BaseCurrency + "\ntargetCurrency: " + webhook.TargetCurrency + "\ncurrent: " + rateString + "\nminTriggerValue: " + min + "\nmaxTriggerValue: " + max
 
 			DiscordOperator(text, webhook.WebhookURL)
+			w.WriteHeader(http.StatusOK)
 		}
 	} else {
 		http.Error(w, "There isn't any data yet", 404)

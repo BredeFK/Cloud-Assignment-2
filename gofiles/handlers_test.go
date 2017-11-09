@@ -53,40 +53,8 @@ func TestHandleWebhook(t *testing.T) {
 	http.HandlerFunc(HandleWebhook).ServeHTTP(resp, req)
 
 	if status := resp.Code; status != http.StatusBadRequest {
-		t.Errorf("handler returned wrong status code: got %v want %v",
+		t.Errorf("handler returned wrong status code: got %v wanted %v",
 			status, http.StatusBadRequest)
-	}
-}
-
-func TestHandleTestTrigger(t *testing.T) {
-	testDB := SetupDB()
-	count := testDB.Count()
-	ok := false
-
-	if count == 0 {
-		t.Fatal("Count is wrong, there should be at least one payload")
-	} else {
-		session, err := mgo.Dial(testDB.DatabaseURL)
-		if err != nil {
-			t.Fatal(err.Error())
-		}
-		defer session.Close()
-
-		payload := Payload{}
-
-		for i := 1; i <= count; i++ {
-			err = session.DB(testDB.DatabaseName).C(testDB.ColWebHook).Find(nil).Skip(count - i).One(&payload)
-			if err != nil {
-				t.Fatal("Can not get one or more webhook data", err.Error())
-				return
-			}
-			if payload.WebhookURL == "www.imgur.com/" {
-				ok = true
-			}
-		}
-		if ok != true {
-			t.Fatal("Could not find added payload")
-		}
 	}
 }
 
