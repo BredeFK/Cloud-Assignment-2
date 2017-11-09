@@ -1,11 +1,12 @@
-//==================================================================================================\\
-// 		   AUTHOR: 	Brede Fritjof Klausen		  				  								    \\
-// 		  SUBJECT: 	IMT2681 Cloud Technologies													    \\
-//==================================================================================================\\
-//	SOURCES:												 									    \\
-// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang  \\
-// * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
-//==================================================================================================\\
+//=========================================================================================================//
+// 		   AUTHOR: 	Brede Fritjof Klausen                                                                  //
+// 		  SUBJECT: 	IMT2681 Cloud Technologies                                                             //
+//=========================================================================================================//
+//	SOURCES:                                                                                               //
+// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang         //
+// * https://elithrar.github.io/article/testing-http-handlers-go/                                          //
+// * https://stackoverflow.com/questions/20234104/how-to-format-current-time-using-a-yyyymmddhhmmss-format //
+//=========================================================================================================//
 
 package gofiles
 
@@ -102,17 +103,29 @@ func (db *MongoDB) Get(keyID string) (Payload, bool) {
 
 // GetLatest gets the latest currency with date as index
 func (db *MongoDB) GetLatest(date string) (Currency, bool) {
-	session, err := mgo.Dial(db.DatabaseURL)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer session.Close()
-
-	currency := Currency{}
+	count := db.Count()
 	notToday := true
+	currency := Currency{}
 
-	err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(bson.M{"date": date}).One(&currency)
-	if err != nil {
+	if count > 0 {
+		session, err := mgo.Dial(db.DatabaseURL)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer session.Close()
+		count := 2
+
+
+
+		if date != "noDate" {
+			err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(bson.M{"date": date}).One(&currency)
+		} else {
+			err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(nil).Skip(count - 1).One(&currency)
+		}
+		if err != nil {
+			notToday = false
+		}
+	}else{
 		notToday = false
 	}
 

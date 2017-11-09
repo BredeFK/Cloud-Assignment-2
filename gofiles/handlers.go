@@ -1,23 +1,24 @@
-//==================================================================================================\\
-// 		   AUTHOR: 	Brede Fritjof Klausen		  				  								    \\
-// 		  SUBJECT: 	IMT2681 Cloud Technologies													    \\
-//==================================================================================================\\
-//	SOURCES:												 									    \\
-// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang  \\
-// * https://elithrar.github.io/article/testing-http-handlers-go/								    \\
-//==================================================================================================\\
+//=========================================================================================================//
+// 		   AUTHOR: 	Brede Fritjof Klausen                                                                  //
+// 		  SUBJECT: 	IMT2681 Cloud Technologies                                                             //
+//=========================================================================================================//
+//	SOURCES:                                                                                               //
+// * https://stackoverflow.com/questions/38127583/get-last-inserted-element-from-mongodb-in-golang         //
+// * https://elithrar.github.io/article/testing-http-handlers-go/                                          //
+// * https://stackoverflow.com/questions/20234104/how-to-format-current-time-using-a-yyyymmddhhmmss-format //
+//=========================================================================================================//
 
 package gofiles
 
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"log"
 	"net/http"
 	"strings"
 	"time"
+	"gopkg.in/mgo.v2"
+	"log"
 )
 
 // HandlePOST handles post
@@ -221,12 +222,9 @@ func HandleTestTrigger(w http.ResponseWriter, r *http.Request) {
 		}
 		defer session.Close()
 
-		tempToday := time.Now().Local()
-		today := tempToday.Format("2006-01-02")
-
-		currency, ok := db.GetLatest(today)
+		currency, ok := db.GetLatest("noDate")
 		if ok == false {
-			http.Error(w, "There isn't any currency data from today", 404)
+			http.Error(w, "There isn't any data", 404)
 			return
 		}
 
