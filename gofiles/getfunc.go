@@ -15,15 +15,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 )
 
 // GetCurrency gets the currency from URL
-func GetCurrency(URL string) Currency {
-
-	client := http.Client{
-		Timeout: time.Second * 5,
-	}
+func GetCurrency(URL string, cli http.Client) Currency {
 
 	req, err := http.NewRequest(http.MethodGet, URL, nil)
 	if err != nil {
@@ -32,7 +27,7 @@ func GetCurrency(URL string) Currency {
 
 	req.Header.Set("User-Agent", "Assignment")
 
-	res, getErr := client.Do(req)
+	res, getErr := cli.Do(req)
 	if getErr != nil {
 		log.Fatal(getErr)
 	}

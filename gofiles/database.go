@@ -15,6 +15,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"log"
+	"net/http"
+	"time"
 )
 
 // URL url for fixer
@@ -187,7 +189,10 @@ func (db *MongoDB) Count() int {
 
 // DailyCurrencyAdder adds currency once a day
 func DailyCurrencyAdder() {
-	currency := GetCurrency(URL)
+	client := http.Client{
+		Timeout: time.Second * 5,
+	}
+	currency := GetCurrency(URL, client)
 	db := SetupDB()
 	db.Init()
 	db.AddCurrency(currency)

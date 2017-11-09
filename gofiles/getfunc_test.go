@@ -10,12 +10,20 @@
 
 package gofiles
 
-import "testing"
+import (
+	"net/http"
+	"testing"
+	"time"
+)
 
 func TestGetCurrency(t *testing.T) {
 	testURL := "http://api.fixer.io/2016-12-30?base=EUR"
 
-	currency := GetCurrency(testURL)
+	client := http.Client{
+		Timeout: time.Second * 10,
+	}
+
+	currency := GetCurrency(testURL, client)
 
 	base := "EUR"
 	date := "2016-12-30"
