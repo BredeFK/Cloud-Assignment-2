@@ -13,11 +13,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
 	"strings"
 	"time"
+	"gopkg.in/mgo.v2/bson"
 )
 
 // HandlePOST handles post
@@ -32,7 +32,10 @@ func HandlePOST(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
+
 	payload.ID = bson.NewObjectId()
+
+
 	fmt.Fprintf(w, "%s", payload.ID.Hex())
 	w.WriteHeader(http.StatusOK)
 
