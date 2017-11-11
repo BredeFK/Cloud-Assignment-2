@@ -104,7 +104,7 @@ func (db *MongoDB) Get(keyID string) (Payload, bool) {
 
 // GetLatest gets the latest currency with date as index
 func (db *MongoDB) GetLatest(date string, number int) (Currency, bool) {
-	count := db.Count()
+	count := db.CountCurrency()
 	notToday := true
 	currency := Currency{}
 
@@ -114,7 +114,6 @@ func (db *MongoDB) GetLatest(date string, number int) (Currency, bool) {
 			log.Fatal(err)
 		}
 		defer session.Close()
-		count := 2
 
 		if date != "noDate" {
 			err = session.DB(db.DatabaseName).C(db.ColCurrency).Find(bson.M{"date": date}).One(&currency)
@@ -179,6 +178,23 @@ func (db *MongoDB) Count() int {
 	defer session.Close()
 
 	count, err := session.DB(db.DatabaseName).C(db.ColWebHook).Count()
+	if err != nil {
+		log.Printf("Error in Count(): %v", err.Error())
+		return -1
+	}
+
+	return count
+}
+
+// CountCurrency counts the colCurrency
+func (db *MongoDB) CountCurrency() int {
+	session, err := mgo.Dial(db.DatabaseURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer session.Close()
+
+	count, err := session.DB(db.DatabaseName).C(db.ColCurrency).Count()
 	if err != nil {
 		log.Printf("Error in Count(): %v", err.Error())
 		return -1

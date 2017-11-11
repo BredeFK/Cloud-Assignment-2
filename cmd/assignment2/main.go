@@ -13,14 +13,14 @@ package main
 import (
 	"bitbucket.org/Brede_F_Klausen/assignment2_cloud/gofiles"
 	"net/http"
-	"os"
 )
 
 func main() {
-	port := os.Getenv("PORT")
+//	port := os.Getenv("PORT")
 	http.HandleFunc("/", gofiles.HandleWebhook)
 	http.HandleFunc("/latest", gofiles.HandleLatest)
 	http.HandleFunc("/average", gofiles.HandleAverage)
 	http.HandleFunc("/evaluationtrigger", gofiles.HandleTestTrigger)
-	http.ListenAndServe(":"+port, nil)
+//	http.ListenAndServe(":"+port, nil)
+	http.ListenAndServe("localhost:8080", nil)
 }

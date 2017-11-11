@@ -138,7 +138,7 @@ func HandleLatest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := SetupDB()
-	currency, ok := db.GetLatest("noDate", 0)
+	currency, ok := db.GetLatest("noDate", 1)
 
 	if ok == false {
 		http.Error(w, "There isn't any data yet", 404)
@@ -183,7 +183,7 @@ func HandleAverage(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < totalDays; i++ {
 
-		currency, ok := db.GetLatest("noDate", i)
+		currency, ok := db.GetLatest("noDate", i+1)
 		if ok == false {
 			http.Error(w, "There isn't any data for all the days yet", 404)
 			return
