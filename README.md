@@ -1,4 +1,3 @@
-Note:
 # Assignment 2: Persistence, Live feed, Notifications
 ## Root url:
 https://oblig2-klausen.herokuapp.com/
